@@ -1,0 +1,4 @@
+/* Keep CSS minimal: the focus is DevOps, not UI engineering. */
+body {
+ font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
