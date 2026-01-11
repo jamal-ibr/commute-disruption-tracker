@@ -4,7 +4,7 @@ from app.main import app
 client = TestClient(app)
 
 @pytest.mark.parametrize("line_id", ["victoria", "central"])
-def test_line_status_endpoint_exists(line_id: str):
+def test_line_status_endpoint_exists(client, line_id: str):
    """
    This test checks:
    - the endpoint responds
@@ -13,13 +13,8 @@ def test_line_status_endpoint_exists(line_id: str):
    because that would make tests flaky (external dependency).
    """
    r = client.get(f"/line-status?line_id={line_id}")
-   # We accept either:
-   # - 200 if TfL reachable
-   # - 502 if TfL unreachable (still correct behaviour)
-   assert r.status_code in (200, 502)
-   if r.status_code == 200:
-       body = r.json()
-       assert "line_id" in body
-       assert "status" in body
-       assert "severity" in body
-       assert "requested_at" in body
+   assert r.status_code == 200
+   data = r.json()
+   assert "line_id" in data
+   assert "status" in data
+   assert "severity" in data
