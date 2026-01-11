@@ -10,8 +10,8 @@ jobs:
    runs-on: ubuntu-latest
    env:
      PYTHONPATH: ${{ github.workspace }}
-     DATABASE_URL: sqlite+pysqlite:///:memory:
-     TFL_BASE_URL: https://api.tfl.gov.uk
+     DATABASE_URL: "sqlite+pysqlite:///:memory:"
+     TFL_BASE_URL: "https://api.tfl.gov.uk"
      TFL_APP_ID: ""
      TFL_APP_KEY: ""
    steps:
