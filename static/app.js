@@ -9,14 +9,21 @@ function show(el) {
 function hide(el) {
  el.classList.add("d-none");
 }
+
 function setAlertStyleBySeverity(alertEl, severity) {
- // TfL severity scale varies, but lower is usually better.
- // Keep the mapping simple and explainable.
- alertEl.classList.remove("alert-success", "alert-warning", "alert-danger", "alert-info");
- if (severity <= 5) alertEl.classList.add("alert-success");
- else if (severity <= 9) alertEl.classList.add("alert-warning");
- else alertEl.classList.add("alert-danger");
+  alertEl.classList.remove("alert-success", "alert-warning", "alert-danger", "alert-info");
+  severity = Number(severity);
+  if (severity >= 10) {
+    alertEl.classList.add("alert-success"); // Good Service → green
+  } else if (severity === 9) {
+    alertEl.classList.add("alert-warning"); // Minor Delays → amber
+  } else if (severity >= 7) {
+    alertEl.classList.add("alert-warning"); // Reduced Service → amber
+  } else {
+    alertEl.classList.add("alert-danger");  // Severe issues → red
+  }
 }
+
 async function fetchJson(url) {
  const res = await fetch(url);
  const body = await res.json().catch(() => ({}));
